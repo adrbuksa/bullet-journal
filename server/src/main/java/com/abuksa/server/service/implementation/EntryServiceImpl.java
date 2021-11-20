@@ -1,8 +1,8 @@
 package com.abuksa.server.service.implementation;
 
-import com.abuksa.server.model.JournalEntry;
-import com.abuksa.server.repo.JournalEntryRepo;
-import com.abuksa.server.service.JournalEntryService;
+import com.abuksa.server.model.Entry;
+import com.abuksa.server.repo.EntryRepo;
+import com.abuksa.server.service.EntryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -15,29 +15,29 @@ import java.util.Collection;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class JournalEntryServiceImpl implements JournalEntryService {
-    private final JournalEntryRepo entryRepo;
+public class EntryServiceImpl implements EntryService {
+    private final EntryRepo entryRepo;
 
     @Override
-    public JournalEntry create(JournalEntry entry) {
+    public Entry create(Entry entry) {
         log.info("Saving new entry: {}", entry.getText());
         return entryRepo.save(entry);
     }
 
     @Override
-    public Collection<JournalEntry> listAll(int limit) {
+    public Collection<Entry> listAll(int limit) {
         log.info("Fetching list of all entries");
         return entryRepo.findAll(PageRequest.of(0, limit)).toList();
     }
 
     @Override
-    public JournalEntry getById(Long id) {
+    public Entry getById(Long id) {
         log.info("Fetching entry by id: {}", id);
         return entryRepo.findById(id).get();
     }
 
     @Override
-    public JournalEntry update(JournalEntry entry) {
+    public Entry update(Entry entry) {
         log.info("Updating entry: {}", entry.getText());
         return entryRepo.save(entry);
     }

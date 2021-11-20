@@ -17,15 +17,13 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JournalEntry {
+public class Entry {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotEmpty(message = "Text cannot be empty!")
     private String text;
-    @NotEmpty(message = "Type cannot be empty!")
     private EntryType type;
-    @NotEmpty(message = "Date cannot be empty!")
     private LocalDate date;
     private EntryStatus status;
     private Boolean isImportant;
