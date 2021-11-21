@@ -45,4 +45,16 @@ export class AppComponent {
       })
     );
   }
+
+  onNextDayClick(): void {
+    let date = new Date(this.selectedDateSubject.value);
+    date.setDate(date.getDate() + 1);
+    this.selectedDateSubject.next(date);
+  }
+
+  onPreviousDayClick(): void {
+    let date = new Date(this.selectedDateSubject.value);
+    date.setDate(date.getDate() - 1);
+    this.selectedDateSubject.next(date);
+  }
 }

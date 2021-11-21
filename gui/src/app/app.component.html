@@ -12,10 +12,10 @@
           <div *ngIf="selectedDate$ | async as selectedDate" class="daily-info">
             <div>{{ selectedDate.toLocaleDateString() }}</div>
             <div class="daily-inf-btn">
-              <button>
+              <button (click)="onPreviousDayClick()">
                 <i class="material-icons">keyboard_arrow_left</i>
               </button>
-              <button>
+              <button (click)="onNextDayClick()">
                 <i class="material-icons">keyboard_arrow_right</i>
               </button>
             </div>
