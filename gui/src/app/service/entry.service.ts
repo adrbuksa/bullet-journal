@@ -32,6 +32,16 @@ export class EntryService {
       this.http.delete<CustomResponse>(`${this.apiUrl}/delete/${entryId}`).pipe(tap(console.log), catchError(this.handleError))
     );
 
+  filterByDate$ = (date: Date, response: CustomResponse) =>
+    new Observable<CustomResponse>(subscriber => {
+      console.log(response);
+      subscriber.next({
+        ...response,
+        data: { entries: response.data.entries.filter(e => new Date(e.date).toLocaleDateString() === date.toLocaleDateString()) }
+      });
+      subscriber.complete();
+    }).pipe(tap(console.log), catchError(this.handleError));
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.log(error);
     return throwError(`An error occured - Error code: ${error.status}}`);

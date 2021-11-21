@@ -4,6 +4,7 @@ import { catchError, map, startWith } from 'rxjs/operators';
 import { DataState } from './enum/data-state.enum';
 import { AppState } from './interface/app-state';
 import { CustomResponse } from './interface/custom-response';
+import { Entry } from './interface/entry';
 import { EntryService } from './service/entry.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { EntryService } from './service/entry.service';
 export class AppComponent {
   appState$: Observable<AppState<CustomResponse>>;
   private dataSubject = new BehaviorSubject<CustomResponse>(null);
+  readonly DataState = DataState;
 
   constructor(private entryService: EntryService) {}
 
@@ -21,9 +23,24 @@ export class AppComponent {
     this.appState$ = this.entryService.entries$.pipe(
       map(response => {
         this.dataSubject.next(response);
+        this.filterEntriesByDate(new Date(2021, 10, 19));
+        // response.data.entries.forEach(e => console.log(new Date(e.date).getTime()));
+
         return { dataState: DataState.LOADED_STATE, appData: { ...response, data: { entries: response.data.entries } } };
       }),
       startWith({ dataState: DataState.LOADING_STATE }),
+      catchError((error: string) => {
+        return of({ dataState: DataState.ERROR_STATE, error });
+      })
+    );
+  }
+
+  filterEntriesByDate(date: Date): void {
+    this.appState$ = this.entryService.filterByDate$(date, this.dataSubject.value).pipe(
+      map(response => {
+        return { dataState: DataState.LOADED_STATE, appData: response };
+      }),
+      startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
       catchError((error: string) => {
         return of({ dataState: DataState.ERROR_STATE, error });
       })
