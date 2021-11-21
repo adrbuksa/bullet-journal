@@ -5,13 +5,19 @@
         <div class="daily-header">
           <div class="daily-title">
             <div>Daily Log</div>
-            <button>Add</button>
+            <button>
+              <i class="material-icons">add</i>
+            </button>
           </div>
-          <div class="daily-info">
-            <div>21 listopad 2021</div>
+          <div *ngIf="selectedDate$ | async as selectedDate" class="daily-info">
+            <div>{{ selectedDate.toLocaleDateString() }}</div>
             <div class="daily-inf-btn">
-              <button><</button>
-              <button>></button>
+              <button>
+                <i class="material-icons">keyboard_arrow_left</i>
+              </button>
+              <button>
+                <i class="material-icons">keyboard_arrow_right</i>
+              </button>
             </div>
           </div>
           <div class="daily-content">

@@ -16,6 +16,8 @@ export class AppComponent {
   appState$: Observable<AppState<CustomResponse>>;
   private dataSubject = new BehaviorSubject<CustomResponse>(null);
   readonly DataState = DataState;
+  private selectedDateSubject = new BehaviorSubject<Date>(new Date());
+  selectedDate$ = this.selectedDateSubject.asObservable();
 
   constructor(private entryService: EntryService) {}
 

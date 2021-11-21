@@ -6,8 +6,9 @@
 
 .daily-header {
   min-width: 350px;
-  background-color: white;
+  background-color: rgb(240, 240, 240);
   padding: 5px;
+  border-radius: 4px;
 }
 
 .daily-title {
@@ -17,7 +18,20 @@
   padding-bottom: 8px;
 }
 
-.display-title button {
+.daily-title button {
+  border: none;
+}
+
+.daily-title button > i {
+  border-radius: 50px;
+}
+
+.daily-title button :hover {
+  background-color: rgb(228, 228, 228);
+}
+
+.daily-title button :active {
+  background-color: rgb(196, 196, 196);
 }
 
 .daily-info {
@@ -31,8 +45,31 @@
 .daily-inf-btn {
 }
 
+.daily-info button {
+  border: none;
+  padding: 0;
+}
+.daily-info button > i {
+  font-size: 16px;
+}
+
+.daily-info button :hover {
+  background-color: rgb(228, 228, 228);
+}
+
+.daily-info button :active {
+  background-color: rgb(196, 196, 196);
+}
+
 .daily-content ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.daily-content li {
+  background-color: white;
+  margin: 3px;
+  padding: 5px;
+  border-radius: 4px;
 }
