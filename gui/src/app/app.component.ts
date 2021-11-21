@@ -23,9 +23,6 @@ export class AppComponent {
     this.appState$ = this.entryService.entries$.pipe(
       map(response => {
         this.dataSubject.next(response);
-        this.filterEntriesByDate(new Date(2021, 10, 19));
-        // response.data.entries.forEach(e => console.log(new Date(e.date).getTime()));
-
         return { dataState: DataState.LOADED_STATE, appData: { ...response, data: { entries: response.data.entries } } };
       }),
       startWith({ dataState: DataState.LOADING_STATE }),

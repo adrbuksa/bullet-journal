@@ -1,5 +1,31 @@
 <ng-container *ngIf="appState$ | async as appState" [ngSwitch]="appState.dataState">
   <ng-container *ngSwitchCase="DataState.LOADED_STATE">
-    <div>{{ appState.appData | json }}</div>
+    <div class="main-container">
+      <div class="daily-container">
+        <div class="daily-header">
+          <div class="daily-title">
+            <div>Daily Log</div>
+            <button>Add</button>
+          </div>
+          <div class="daily-info">
+            <div>21 listopad 2021</div>
+            <div class="daily-inf-btn">
+              <button><</button>
+              <button>></button>
+            </div>
+          </div>
+          <div class="daily-content">
+            <ul>
+              <li *ngFor="let entry of appState.appData.data.entries">
+                <div>
+                  <input type="checkbox" />
+                  {{ entry.text }}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </ng-container>
 </ng-container>
