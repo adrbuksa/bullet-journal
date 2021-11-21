@@ -4,7 +4,6 @@ import { catchError, map, startWith } from 'rxjs/operators';
 import { DataState } from './enum/data-state.enum';
 import { AppState } from './interface/app-state';
 import { CustomResponse } from './interface/custom-response';
-import { Entry } from './interface/entry';
 import { EntryService } from './service/entry.service';
 
 @Component({
@@ -25,6 +24,7 @@ export class AppComponent {
     this.appState$ = this.entryService.entries$.pipe(
       map(response => {
         this.dataSubject.next(response);
+        this.filterEntriesByDate(this.selectedDateSubject.value);
         return { dataState: DataState.LOADED_STATE, appData: { ...response, data: { entries: response.data.entries } } };
       }),
       startWith({ dataState: DataState.LOADING_STATE }),
@@ -50,11 +50,13 @@ export class AppComponent {
     let date = new Date(this.selectedDateSubject.value);
     date.setDate(date.getDate() + 1);
     this.selectedDateSubject.next(date);
+    this.filterEntriesByDate(this.selectedDateSubject.value);
   }
 
   onPreviousDayClick(): void {
     let date = new Date(this.selectedDateSubject.value);
     date.setDate(date.getDate() - 1);
     this.selectedDateSubject.next(date);
+    this.filterEntriesByDate(this.selectedDateSubject.value);
   }
 }

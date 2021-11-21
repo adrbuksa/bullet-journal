@@ -34,7 +34,6 @@ export class EntryService {
 
   filterByDate$ = (date: Date, response: CustomResponse) =>
     new Observable<CustomResponse>(subscriber => {
-      console.log(response);
       subscriber.next({
         ...response,
         data: { entries: response.data.entries.filter(e => new Date(e.date).toLocaleDateString() === date.toLocaleDateString()) }
