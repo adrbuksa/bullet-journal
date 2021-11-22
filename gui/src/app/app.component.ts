@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, startWith } from 'rxjs/operators';
 import { DataState } from './enum/data-state.enum';
+import { EntryType } from './enum/entry-type';
 import { AppState } from './interface/app-state';
 import { CustomResponse } from './interface/custom-response';
 import { EntryService } from './service/entry.service';
@@ -15,6 +16,7 @@ export class AppComponent {
   appState$: Observable<AppState<CustomResponse>>;
   private dataSubject = new BehaviorSubject<CustomResponse>(null);
   readonly DataState = DataState;
+  readonly EntryType = EntryType;
   private selectedDateSubject = new BehaviorSubject<Date>(new Date());
   selectedDate$ = this.selectedDateSubject.asObservable();
 

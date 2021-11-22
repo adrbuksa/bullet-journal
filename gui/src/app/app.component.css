@@ -42,9 +42,6 @@
   padding-bottom: 5px;
 }
 
-.daily-inf-btn {
-}
-
 .daily-info button {
   border: none;
   padding: 0;
@@ -72,4 +69,8 @@
   margin: 3px;
   padding: 5px;
   border-radius: 4px;
+}
+
+.modal-header {
+  padding: 0.8rem;
 }
