@@ -23,7 +23,7 @@ export class AppComponent {
   private selectedDateSubject = new BehaviorSubject<Date>(new Date());
   selectedDate$ = this.selectedDateSubject.asObservable();
   private isLoadingSubject = new BehaviorSubject<boolean>(false);
-  private isLoading$ = this.isLoadingSubject.asObservable();
+  isLoading$ = this.isLoadingSubject.asObservable();
 
   constructor(private entryService: EntryService) {}
 
