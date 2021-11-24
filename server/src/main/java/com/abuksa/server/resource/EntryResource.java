@@ -3,7 +3,6 @@ package com.abuksa.server.resource;
 import com.abuksa.server.model.CustomResponse;
 import com.abuksa.server.model.Entry;
 import com.abuksa.server.service.EntryService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +15,13 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("entry")
-@RequiredArgsConstructor
 public class EntryResource {
     private final EntryService entryService;
+
+    public EntryResource(EntryService entryService) {
+        this.entryService = entryService;
+    }
+
 
     @GetMapping("/list")
     public ResponseEntity<CustomResponse> getEntries() {
