@@ -22,10 +22,11 @@
           </div>
           <div class="daily-content">
             <ul>
-              <li *ngFor="let entry of appState.appData.data.entries">
+              <li *ngFor="let entry of appState.appData.data.entries" [ngClass]="{ important: entry.isImportant }">
                 <div>
                   <input type="checkbox" />
                   {{ entry.text }}
+                  <i *ngIf="entry.isImportant" class="material-icons priority_high">&#xe645;</i>
                 </div>
               </li>
             </ul>
