@@ -76,6 +76,10 @@
   align-items: center;
 }
 
+.daily-content input {
+  margin-right: 5px;
+}
+
 .daily-content-icon {
   padding: 0;
   margin: 0;
@@ -85,6 +89,15 @@
 
 .daily-content-icon i {
   font-size: 15px;
+}
+
+.daily-content-delete {
+  flex-grow: 1;
+  color: gray;
+}
+
+.daily-content-delete i {
+  float: right;
 }
 
 .important {

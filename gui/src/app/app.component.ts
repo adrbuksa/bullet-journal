@@ -28,7 +28,6 @@ export class AppComponent {
   constructor(private entryService: EntryService) {}
 
   ngOnInit(): void {
-    console.log('testtesttest');
     this.appState$ = this.entryService.entries$.pipe(
       map(response => {
         this.dataSubject.next(response);
@@ -70,6 +69,33 @@ export class AppComponent {
         this.isLoadingSubject.next(false);
         entryForm.resetForm({ type: this.EntryType.TASK });
 
+        this.filterEntriesByDate(this.selectedDateSubject.value);
+        return {
+          dataState: DataState.LOADED_STATE,
+          appData: this.dataSubject.value
+        };
+      }),
+      startWith({
+        dataState: DataState.LOADED_STATE,
+        appData: this.dataSubject.value
+      }),
+      catchError((error: string) => {
+        this.isLoadingSubject.next(false);
+        return of({ dataState: DataState.ERROR_STATE, error });
+      })
+    );
+  }
+
+  deleteEntry(entry: Entry) {
+    this.isLoadingSubject.next(true);
+    this.appState$ = this.entryService.delete$(entry.id).pipe(
+      map(response => {
+        this.dataSubject.next({
+          ...response,
+          data: { entries: [...this.dataSubject.value.data.entries.filter(e => e.id !== entry.id)] }
+        });
+
+        this.isLoadingSubject.next(false);
         this.filterEntriesByDate(this.selectedDateSubject.value);
         return {
           dataState: DataState.LOADED_STATE,
