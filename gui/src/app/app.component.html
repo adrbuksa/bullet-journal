@@ -21,20 +21,29 @@
             </div>
           </div>
           <div class="daily-content">
-            <ul>
-              <li *ngFor="let entry of appState.appData.data.entries" [ngClass]="{ important: entry.isImportant }">
-                <div class="daily-content-entry">
-                  <input type="checkbox" />
-                  {{ entry.text }}
-                  <div *ngIf="entry.isImportant" class="daily-content-icon">
-                    <i class="material-icons priority_high">&#xe645;</i>
-                  </div>
-                  <a (click)="deleteEntry(entry)" class="daily-content-delete" data-toggle="modal" style="cursor: pointer">
-                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                  </a>
+            <ng-container *ngIf="appState$ | async as appState" [ngSwitch]="appState.dataState">
+              <ng-container *ngSwitchCase="DataState.LOADING_STATE">
+                <div class="col-md-12 single-note-item text-center">
+                  <div class="spinner-border text-info" role="status"></div>
                 </div>
-              </li>
-            </ul>
+              </ng-container>
+              <ng-container *ngSwitchCase="DataState.LOADED_STATE">
+                <ul>
+                  <li *ngFor="let entry of appState.appData.data.entries" [ngClass]="{ important: entry.isImportant }">
+                    <div class="daily-content-entry">
+                      <input type="checkbox" />
+                      {{ entry.text }}
+                      <div *ngIf="entry.isImportant" class="daily-content-icon">
+                        <i class="material-icons priority_high">&#xe645;</i>
+                      </div>
+                      <a (click)="deleteEntry(entry)" class="daily-content-delete" data-toggle="modal" style="cursor: pointer">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </ng-container>
+            </ng-container>
           </div>
         </div>
       </div>

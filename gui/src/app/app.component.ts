@@ -46,7 +46,7 @@ export class AppComponent {
       map(response => {
         return { dataState: DataState.LOADED_STATE, appData: response };
       }),
-      startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
+      startWith({ dataState: DataState.LOADING_STATE, appData: this.dataSubject.value }),
       catchError((error: string) => {
         return of({ dataState: DataState.ERROR_STATE, error });
       })
@@ -66,17 +66,17 @@ export class AppComponent {
         });
 
         document.getElementById('closeModal').click();
-        this.isLoadingSubject.next(false);
         entryForm.resetForm({ type: this.EntryType.TASK });
-
         this.filterEntriesByDate(this.selectedDateSubject.value);
+
+        this.isLoadingSubject.next(false);
         return {
           dataState: DataState.LOADED_STATE,
           appData: this.dataSubject.value
         };
       }),
       startWith({
-        dataState: DataState.LOADED_STATE,
+        dataState: DataState.LOADING_STATE,
         appData: this.dataSubject.value
       }),
       catchError((error: string) => {
@@ -95,15 +95,15 @@ export class AppComponent {
           data: { entries: [...this.dataSubject.value.data.entries.filter(e => e.id !== entry.id)] }
         });
 
-        this.isLoadingSubject.next(false);
         this.filterEntriesByDate(this.selectedDateSubject.value);
+        this.isLoadingSubject.next(false);
         return {
           dataState: DataState.LOADED_STATE,
           appData: this.dataSubject.value
         };
       }),
       startWith({
-        dataState: DataState.LOADED_STATE,
+        dataState: DataState.LOADING_STATE,
         appData: this.dataSubject.value
       }),
       catchError((error: string) => {
