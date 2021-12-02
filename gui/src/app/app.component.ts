@@ -24,6 +24,7 @@ export class AppComponent {
   selectedDate$ = this.selectedDateSubject.asObservable();
   private isLoadingSubject = new BehaviorSubject<boolean>(false);
   isLoading$ = this.isLoadingSubject.asObservable();
+  isImportant: boolean = false;
 
   constructor(private entryService: EntryService) {}
 
@@ -58,6 +59,7 @@ export class AppComponent {
     let entry = entryForm.value as Entry;
     entry.date = this.selectedDateSubject.value;
     entry.status = EntryStatus.NOT_COMPLETED;
+    entry.isImportant = this.isImportant;
     this.appState$ = this.entryService.save$(entry).pipe(
       map(response => {
         this.dataSubject.next({
